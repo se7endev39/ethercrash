@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Home from './Home';
-import Login from './Login'
-import Register from './Register'
+import Home from './views/Home/Home';
+import Login from './views/SignPage/Login'
+import Register from './views/SignPage/Register'
 import './App.css';
 
 const App = () => (
