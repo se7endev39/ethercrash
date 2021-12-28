@@ -85,7 +85,7 @@ p{
 
 
 .bottom-img{
-  width:'100vw';
+  width:100vw;
   position:absolute;
   bottom:0;
   z-index: 0;

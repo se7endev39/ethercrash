@@ -40,7 +40,12 @@ input, button {
   margin-left: 14px;
   color: coral;
 }
-
+.Link {
+  color: coral;
+}
+.back_button {
+  background-color: coral!important;
+}
 .GameWrapper {
   display: flex;
   flex-direction: column;
