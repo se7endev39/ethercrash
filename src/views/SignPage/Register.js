@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
 import './sign.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
-const Checkbox = props => (
-  <input type="checkbox" {...props} />
-)
+
 function Register() {
 
   const history = useHistory();
@@ -16,9 +16,23 @@ function Register() {
   const [username, setUsername] = useState('');
   const [agree, setAgree] = useState(false);
   const [level, setLevel] = useState(0);
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const eye = <FontAwesomeIcon icon={faEye} />;
+
+  const Checkbox = props => (
+    <input type="checkbox" {...props} />
+  )
+
+  const togglePassword = () => {
+    // When the handler is invoked
+    // inverse the boolean state of passwordShown
+    setPasswordShown(!passwordShown);
+  };
 
   const mySubmitHandler = () => {
-    console.log('mysubmithandle',password,password_confirm);
+    var data = { mail: mail, username: username, password: password, level: 0 };
+    console.log('mysubmithandle', password, password_confirm);
     if (mail === "" || password === "" || username === "")
       alert("Please input all data");
     else if (password != password_confirm)
@@ -31,7 +45,11 @@ function Register() {
             response => {
               console.log(response.data)
               if (response.data == "Registration Success") {
-                history.push('/login');
+                localStorage.setItem('mail', mail);
+                localStorage.setItem('password', password);
+                localStorage.setItem('username', username);
+                localStorage.setItem('level', level);
+                history.push('/inform');
               } else {
                 alert(response.data);
               }
@@ -47,7 +65,7 @@ function Register() {
         alert("Please check your agreement")
     }
   }
-  const handleCheckboxChange = event => setAgree(event.target.checked);  
+  const handleCheckboxChange = event => setAgree(event.target.checked);
   return (
     <>
       <div className='root'>
@@ -58,7 +76,8 @@ function Register() {
             <div className='text-label'>User Name</div>
             <input type="text" name='username' className='text-input' placeholder='User Name' onChange={(e) => setUsername(e.target.value)} />
             <div className='text-label'>Password</div>
-            <input type="password" name='password' className='text-input' placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
+            <input type={passwordShown ? "text" : "password"} name='password' className='text-input' placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
+            <i onClick={togglePassword} >{eye}</i>
             <div className='text-label'>Password_Cornfirm</div>
             <input type="password" name='password_confirm' className='text-input' placeholder='Confirm Password' onChange={(e) => setPassword_Confirm(e.target.value)} />
             <div className='text-label'>Email Address</div>

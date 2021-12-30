@@ -25,8 +25,10 @@ function Login() {
             if (response.data == "matching") {
               let data = [
                 { oauth: 'true' },
-              ]
-              history.push({ pathname: '/', data: data });
+              ];
+              localStorage.setItem('username',username);
+              localStorage.setItem('password',password);
+              history.push('/');
             } else {
               alert(response.data);
             }
